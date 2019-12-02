@@ -1,8 +1,7 @@
-$fire: orangered;
-$flying: rgb(174, 184, 184);
-$psychic: darksalmon;
-$fairy: palevioletred;
-
+.card-search {
+    float: right;
+    text-align: right;
+}
 
 .pkm-img {
     max-width: 100%;
@@ -14,92 +13,27 @@ $fairy: palevioletred;
     text-align: right;
 }
 
-// .dex-entry {
-//     height: auto;
-//     background: linear-gradient(30deg, $fire 50%, $flying 50%);
-// }
+.dex-nav {
+    background: linear-gradient(0.20turn, red,  blue);
+}
 
-.fire {
+.tcg-link {
     color: white;
-    background-color: orangered;
 }
 
-.flying {
-    color: black;
-    background-color: rgb(174, 184, 184);
-}
-
-.psychic {
-    color: white;
-    background-color: darksalmon;
-}
-
-.fairy {
-    color: white;
-    background-color: palevioletred;
-}
-
-.steel {
-    color: white;
-    background-color: steelblue;
-}
-
-.water {
-    color: black;
-    background-color: rgb(97, 97, 255);
-}
-
-.dark {
-    color: white;
-    background-color: rgb(22, 21, 21);
-}
-
-.fighting {
-    color: white;
-    background-color: #9c4206;
-}
-
-.electric {
-    color: black;
-    background-color: yellow;
-}
-
-.grass {
-    color: white;
-    background-color: green;
-}
-
-.poison {
-    color: white;
-    background-color: purple;
-}
-
-.ghost {
-    color: white;
-    background-color: rgb(46, 5, 48)
-}
-
-.ice {
-    color: black;
-    background-color: aquamarine;
-}
-
-.ground {
-    color: black;
-    background-color: burlywood;
-}
-
-.rock {
-    color: black;
-    background-color: rgb(218, 160, 35)
-}
-
-.bug {
-    color: black;
-    background-color: greenyellow;
-}
-
-.dragon {
-    color: white;
-    background-color: rgb(59, 43, 150);
+.tcg-overlay {
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed !important;
+    background-color: rgba(0,0,0,0.9) !important;
+    cursor: pointer !important;
+    visibility: visible !important;
+    transition: visibility 0s, opacity 0.4s linear !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: wait !important;
 }

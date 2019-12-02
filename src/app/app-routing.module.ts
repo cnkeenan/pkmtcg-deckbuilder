@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TcgComponent } from './tcg/tcg.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'cardlookup', component: TcgComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

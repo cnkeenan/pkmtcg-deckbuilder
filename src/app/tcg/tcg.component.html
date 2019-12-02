@@ -1,0 +1,144 @@
+<div class="container">
+    <div class="alert alert-danger" *ngIf="errSet" role="alert">{{errorMessage}}</div>
+    <button type="button" data-toggle="modal" data-target="#search-modal" class="btn btn-raised btn-primary bmd-btn-fab
+    tcg-search-btn"><span class="material-icons">grade</span></button>
+    <div class="row">
+        <div class="col-md-3 tcg-card" *ngFor="let card of cards" style="width: 15em;">
+            <a href="#" data-toggle="modal" [attr.data-target]="'#'+card.id"><img src="{{card.imageUrlHiRes}}"
+                    class="card-img-top"></a>
+
+            <div class="modal fade" [attr.id]="card.id" aria-labelledby="poke-info-label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!-- Pokémon type-->
+                            <ng-container *ngIf="card.supertype == 'Pokémon'">
+                                <h5 class="modal-title" id="poke-info-label">{{card.name}}
+                                    HP{{card.hp}}</h5>
+                            </ng-container>
+                            <!-- Trainer type-->
+                            <ng-container *ngIf="card.supertype == 'Trainer'">
+                                <h5 class="modal-title" id="poke-info-label">{{card.name}} </h5>
+
+                            </ng-container>
+                            <!-- Energy type-->
+                            <ng-container *ngIf="card.supertype == 'Energy'">
+                                <h5 class="modal-title" id="poke-info-label">{{card.name}}</h5>
+                            </ng-container>
+
+                            <button class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <ng-container *ngIf="card.supertype == 'Pokémon'">
+                                <h5>Moves</h5>
+                                <div *ngFor="let move of card.attacks">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="col-xs-2" *ngFor="let cost of move.cost">
+                                                    <img src="{{cost}}" width="30" height="30">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <p class="lead">{{move.name}}</p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="badge badge-primary
+                                                text-wrap" style="width: 6rem;">
+                                                    {{move.damage}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p>{{move.text}}</p>
+
+
+                                    </div>
+
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="card.supertype == 'Trainer'">
+                                <h5>Effect </h5>
+                                <div *ngFor="let effect of card.text">
+                                    <p>{{effect}}</p>
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Search modal stuff-->
+<div class="modal fade" id="search-modal" aria-labelledby="search-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="search-modal-label">Card
+                    Filtering</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="specific-mon">Specific Pokemon</label>
+                        <input type="text" name="specificPokemon" [formControl]="specificPokemon" id="specific-mon"
+                            class="form-control">
+                    </div>
+                    <hr>
+                    <p>Select Types to Filter By</p>
+                    <div class="form-check text-center">
+                        <div class="row">
+                            <div class="col-sm-3"><input id="colorless" type="checkbox"><label
+                                    for="colorless"></label><img src="../../assets/colorless.PNG" width="30"
+                                    height="30"></div>
+                            <div class="col-sm-3"><input id="dark" type="checkbox"><label for="dark"><img
+                                        src="../../assets/dark.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-3"><input id="dragon" type="checkbox"><label for="dragon"><img
+                                        src="../../assets/dragon.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-3"><input id="fairy" type="checkbox"><label for="fairy"><img
+                                        src="../../assets/fairy.PNG" width="30" height="30"></label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"><input id="water" type="checkbox"><label for="water"><img
+                                        src="../../assets/water.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-3"> <input id="fire" type="checkbox"><label for="fire"><img
+                                        src="../../assets/fire.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-3"><input id="grass" type="checkbox"><label for="grass"><img
+                                        src="../../assets/grass.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-3"><input id="lightning" type="checkbox"><label for="lightning"><img
+                                        src="../../assets/lightning.PNG" width="30" height="30"></label></div>
+                        </div>
+                        <div class="row mx-5">
+                            <div class="col-sm-4"><input id="steel" type="checkbox"><label for="steel"><img
+                                        src="../../assets/steel.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-4"><input id="fighting" type="checkbox"><label for="fighting"><img
+                                        src="../../assets/fighting.PNG" width="30" height="30"></label></div>
+                            <div class="col-sm-4"><input id="psychic" type="checkbox"><label for="psychic"><img
+                                        src="../../assets/psychic.PNG" width="30" height="30"></label></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <p>Select Sets to Filter By</p>
+                    <div class="row">
+                        <div class="col-xs-2" *ngFor="let set of sets">
+                            <input type="checkbox" name="{{set.name}}" id="{{set.code}}">
+
+                            <label for="{{set.name}}"><span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                                    title="{{set.name}}"><img src="{{set.symbolUrl}}" width="30"
+                                        height="30"></span></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

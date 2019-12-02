@@ -1,0 +1,25 @@
+.tcg-card {
+    padding: 2rem 2rem 2rem 2rem;
+}
+
+.tcg-search-btn {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+$colorless: url('../../assets/colorless.PNG');
+$darkness: url('../../assets/dark.PNG');
+$dragon: url('../../assets/dragon.PNG');
+$fairy: url('../../assets/fairy.PNG');
+$fighting: url('../../assets/fighting.PNG');
+$fire: url('../../assets/fire.PNG');
+$grass: url('../../assets/grass.PNG');
+$lightning: url('../../assets/lightning.PNG');
+$metal: url('../../assets/steel.PNG');
+$psychic: url('../../assets/psychic.PNG');
+$water: url('../../assets/water.PNG');
+
+.Colorless {
+    background: $colorless;
+}

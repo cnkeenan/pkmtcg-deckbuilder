@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './api/api.service';
-import { Pokemon, DamageRelations } from './domain/pokemon.interface';
-import { Router, RouterEvent, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, RouterEvent, NavigationStart, NavigationCancel, NavigationError, NavigationEnd } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,48 +9,37 @@ import { Router, RouterEvent, NavigationEnd, NavigationStart, NavigationCancel, 
 })
 export class AppComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  public showOverlay = true;
 
-  private title: string = 'pokedex';
-  public pokemon: Pokemon;
-  public damages: DamageRelations[] = [];
-  public search: string;
+  public search: FormControl = new FormControl();
 
   ngOnInit() {
-    this.showPokemon("charizard");
+    this.search.valueChanges.subscribe(c => console.log(c));
   }
 
-  showPokemon(pokemon: string) {
-    this.apiService.getPokemon(pokemon)
-      .subscribe((data: Pokemon) => this.pokemon = new Pokemon(
-        data.id,
-        data.name,
-        data.base_experience,
-        data.weight,
-        data.abilities,
-        data.forms,
-        data.game_indices,
-        data.height,
-        data.moves,
-        data.types,
-        data.sprites,
-        data.stats
-      ), (error) => {
-        alert(`This pokemon could not be found`);
-      });
-
-    this.pokemon.types.forEach((element) => {
-      this.apiService.getTypeRelations(element.url)
-        .subscribe((data: DamageRelations) => {
-          this.damages.push(new DamageRelations(
-            data.double_damage_from,
-            data.double_damage_to,
-            data.half_damage_from,
-            data.half_damage_to,
-            data.no_damage_from,
-            data.no_damage_to)
-          );
-        })
+  constructor(private router: Router) {
+    router.events.subscribe((event: RouterEvent) => {
+      this.navigationInterceptor(event);
     })
   }
+
+  navigationInterceptor(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.showOverlay = true;
+    }
+
+    if (event instanceof NavigationEnd) {
+      this.showOverlay = false;
+    }
+
+    if (event instanceof NavigationCancel) {
+      this.showOverlay = false;
+    }
+
+    if (event instanceof NavigationError) {
+      this.showOverlay = false;
+    }
+  }
+
+
 }

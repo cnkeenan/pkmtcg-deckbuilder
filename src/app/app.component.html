@@ -1,64 +1,15 @@
-<div class="container">
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <form>
-        <div class="form-group">
-          <label for="pkm-text">Name of Pokemon</label>
-          <input type="text" name="search" class="form-control" [(ngModel)]="search" id="pkm-text"
-            aria-describedby="pokemonHelp" placeholder="Enter name or pokedex id of pokemon">
-        </div>
-        <button (click)="showPokemon(search)" type="button" class="btn
-                  btn-primary">Find Pokemon Entry</button>
-      </form>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card dex-entry">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="{{pokemon.sprites.front_default}}" class="card-img-top pkm-img">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h4 class="card-title name-entry">{{pokemon.name | titlecase}} #{{pokemon.id}}</h4>
-              <span *ngFor="let type of pokemon.types" class="badge {{type.type.name}} ">{{type.type.name | titlecase}}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4 class="card-title">Base Stats</h4>
-          <table class="table table-hover table-sm">
-            <thead>
-              <tr>
-                <th>Stat</th>
-                <th>Base Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let stat of pokemon.stats">
-                <td>{{stat.stat.name | titlecase}}</td>
-                <td>{{stat.base_stat}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4 class="card-title">Damage Relations</h4>
-          {{damagerelations | json}}
-        </div>
-      </div>
-    </div>
-  </div>
+<nav class="navbar navbar-light bg-light dex-nav">
+  <a class="navbar-brand" href="#"><img src="https://img.icons8.com/plasticine/100/000000/pokeball.png" width="45"
+      height="45"> Pokedex</a>
+  <!-- <a routerLink="/cardlookup" routerLinkActive="active" class="tcg-link">Card Lookup</a> -->
+
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="text" name="search" [formControl]="search" placeholder="Filter by Pokemon name..."
+      aria-label="Search">
+  </form>
+
+</nav>
+<div class="spinner-grow tcg-overlay" role="status" *ngIf="showOverlay">
+  <span class="sr-only">Loading...</span>
 </div>
+<router-outlet></router-outlet>

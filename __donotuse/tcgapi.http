@@ -1,0 +1,1 @@
+GET https://api.pokemontcg.io/v1/cards?name=blaine
