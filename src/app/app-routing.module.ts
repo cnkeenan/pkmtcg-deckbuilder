@@ -6,6 +6,11 @@ import { TcgComponent } from './tcg/tcg.component';
 const routes: Routes = [
   {
     path: 'cardlookup', component: TcgComponent
+  },
+  {
+    path: '',
+    redirectTo: '/cardlookup',
+    pathMatch: 'full'
   }
 ];
 

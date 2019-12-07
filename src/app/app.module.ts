@@ -11,7 +11,7 @@ import { TcgComponent } from './tcg/tcg.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TcgComponent
+    TcgComponent,
   ],
   imports: [
     BrowserModule,

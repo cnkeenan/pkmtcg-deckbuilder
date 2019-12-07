@@ -4,8 +4,14 @@
 
 .tcg-search-btn {
     position: fixed;
-    bottom: 0px;
     right: 0px;
+    background: linear-gradient(0.20turn, red, blue);
+}
+
+.tcg-view-deck-btn {
+    position: fixed;
+    right: 75px;
+    background: linear-gradient(0.20turn, red, blue);
 }
 
 $colorless: url('../../assets/colorless.PNG');

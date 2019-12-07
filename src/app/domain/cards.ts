@@ -3,9 +3,6 @@
  * PokemonTCG Api
  */
 export class Card {
-
-    public moveCostIconMapping: Map<string, string[]> = new Map<string, string[]>();
-
     constructor(
         public id: string,
         public name: string,
@@ -30,50 +27,7 @@ export class Card {
             damage: string,
             convertedEnergyCost: number
         }[]
-    ) {
-        attacks.forEach((attack) => {
-            this.setMoveCostIconMapping(attack.cost, attack.name);
-        })
-    }
-
-    private setMoveCostIconMapping(costs: string[], name: string) {
-        var iconPathConcat: string[] = [];
-
-        costs.forEach((cost) => {
-            var cost = this.determineTypeMapping(cost);
-
-            iconPathConcat.push(cost);
-        });
-
-        this.moveCostIconMapping.set(name, iconPathConcat);
-    }
-
-    determineTypeMapping(typeName: string): string {
-        switch (typeName) {
-            case "Colorless":
-                return COLORLESS_ICON;
-            case "Fire":
-                return FIRE_ICON;
-            case "Water":
-                return WATER_ICON;
-            case "Psychic":
-                return PSYCHIC_ICON;
-            case "Fighting":
-                return FIGHTING_ICON;
-            case "Metal":
-                return METAL_ICON;
-            case "Darkness":
-                return DARKNESS_ICON;
-            case "Dragon":
-                return DRAGON_ICON;
-            case "Grass":
-                return GRASS_ICON;
-            case "Fairy":
-                return FAIRY_ICON;
-            case "Lightning":
-                return LIGHTNING_ICON;
-        }
-    }
+    ) { }
 }
 
 export class Cards {
