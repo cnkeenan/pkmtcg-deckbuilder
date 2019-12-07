@@ -5,7 +5,7 @@ import '../domain/cards';
 import { debounceTime } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { element } from 'protractor';
-import { Card, CardSet, COLORLESS_ICON, FIRE_ICON, WATER_ICON, PSYCHIC_ICON, FIGHTING_ICON, METAL_ICON, DARKNESS_ICON, DRAGON_ICON, GRASS_ICON, FAIRY_ICON, LIGHTNING_ICON } from '../domain/cards';
+import { Card, CardSet, COLORLESS_ICON, FIRE_ICON, WATER_ICON, PSYCHIC_ICON, FIGHTING_ICON, METAL_ICON, DARKNESS_ICON, DRAGON_ICON, GRASS_ICON, FAIRY_ICON, LIGHTNING_ICON, Cards } from '../domain/cards';
 
 @Component({
   selector: 'app-tcg',
@@ -21,6 +21,7 @@ export class TcgComponent implements OnInit {
 
   specificPokemon: FormControl = new FormControl();
   iconMap: Map<string, string> = new Map<string, string>();
+
 
   /* temporary */
   public errorMessage: string;
@@ -69,20 +70,31 @@ export class TcgComponent implements OnInit {
 
         this.api.getCardsByFilters(specificPokemon)
           .subscribe(response => {
-            this.cards = response.cards;
+            var processedCard: Card[] = [];
 
-            /* Do some post processing */
-            this.cards.forEach(card => {
-              card.attacks.forEach(attack => {
-                attack.cost.forEach(cost => {
-                  cost = this.determineTypeMapping(cost);
-                })
-              })
-
-              card.types.forEach(type => {
-                type = this.determineTypeMapping(type);
-              })
+            response.cards.forEach(card => {
+              processedCard.push(new Card(card.id,
+                card.name,
+                card.imageUrlHiRes,
+                card.types,
+                card.supertype,
+                card.subtype,
+                card.evolvesFrom,
+                card.hp,
+                card.retreatCost,
+                card.number,
+                card.artist,
+                card.rarity,
+                card.series,
+                card.set,
+                card.text,
+                card.setCode,
+                card.attacks
+              ));
             })
+
+            this.cards = processedCard;
+
           })
       })
 

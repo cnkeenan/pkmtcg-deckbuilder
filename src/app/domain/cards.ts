@@ -2,38 +2,84 @@
  * Describes the shape of a card returned from the
  * PokemonTCG Api
  */
-export interface Card {
-    id: string,
-    name: string,
-    imageUrlHiRes: string,
-    types: string[],
-    supertype: string,
-    subtype: string,
-    evolvesFrom: string,
-    hp: string,
-    retreatCost: string[],
-    number: string,
-    artist: string,
-    rarity: string,
-    series: string,
-    set: string,
-    text: string[],
-    setCode: string,
-    attacks: {
-        cost: string[],
-        name: string,
-        text: string,
-        damage: string,
-        convertedEnergyCost: number
-    }[],
-    weaknesses: {
-        type: string,
-        value: string
-    }[]
+export class Card {
+
+    public moveCostIconMapping: Map<string, string[]> = new Map<string, string[]>();
+
+    constructor(
+        public id: string,
+        public name: string,
+        public imageUrlHiRes: string,
+        public types: string[],
+        public supertype: string,
+        public subtype: string,
+        public evolvesFrom: string,
+        public hp: string,
+        public retreatCost: string[],
+        public number: string,
+        public artist: string,
+        public rarity: string,
+        public series: string,
+        public set: string,
+        public text: string[],
+        public setCode: string,
+        public attacks: {
+            cost: string[],
+            name: string,
+            text: string,
+            damage: string,
+            convertedEnergyCost: number
+        }[]
+    ) {
+        attacks.forEach((attack) => {
+            this.setMoveCostIconMapping(attack.cost, attack.name);
+        })
+    }
+
+    private setMoveCostIconMapping(costs: string[], name: string) {
+        var iconPathConcat: string[] = [];
+
+        costs.forEach((cost) => {
+            var cost = this.determineTypeMapping(cost);
+
+            iconPathConcat.push(cost);
+        });
+
+        this.moveCostIconMapping.set(name, iconPathConcat);
+    }
+
+    determineTypeMapping(typeName: string): string {
+        switch (typeName) {
+            case "Colorless":
+                return COLORLESS_ICON;
+            case "Fire":
+                return FIRE_ICON;
+            case "Water":
+                return WATER_ICON;
+            case "Psychic":
+                return PSYCHIC_ICON;
+            case "Fighting":
+                return FIGHTING_ICON;
+            case "Metal":
+                return METAL_ICON;
+            case "Darkness":
+                return DARKNESS_ICON;
+            case "Dragon":
+                return DRAGON_ICON;
+            case "Grass":
+                return GRASS_ICON;
+            case "Fairy":
+                return FAIRY_ICON;
+            case "Lightning":
+                return LIGHTNING_ICON;
+        }
+    }
 }
 
-export interface Cards {
-    cards: Card[]
+export class Cards {
+    constructor(
+        public cards: Card[]
+    ) { }
 }
 
 export interface Sets {
