@@ -21,6 +21,9 @@ export class TcgComponent implements OnInit {
   public errSet: boolean = false;
 
   specificPokemon: FormControl = new FormControl();
+  specificSet: FormControl = new FormControl();
+  specificSubtype: FormControl = new FormControl();
+
   iconMap: Map<string, string> = new Map<string, string>();
 
   public msg: string = "";
@@ -46,7 +49,6 @@ export class TcgComponent implements OnInit {
     this.msg = "";
   }
 
-
   ngOnInit() {
     this.api.getCards(this.pageNum)
       .subscribe((data) => {
@@ -66,12 +68,23 @@ export class TcgComponent implements OnInit {
           })
       })
 
-    this.api.getSets().subscribe((data) => {
-      this.sets = data.sets;
-    }, (error) => {
-      this.errSet = true;
-      this.errorMessage = error.toString();
-    })
+    this.specificSet.valueChanges
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe(spec => {
+        this.api.getCardsBySet(spec)
+          .subscribe(response => {
+            this.cards = response.cards;
+          })
+      })
+
+    this.specificSubtype.valueChanges
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe(spec => {
+        this.api.getCardsBySubtype(spec)
+          .subscribe(response => {
+            this.cards = response.cards;
+          })
+      })
   }
 }
 

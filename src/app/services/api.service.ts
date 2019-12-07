@@ -48,6 +48,13 @@ export class ApiService {
     return this.client.get<Cards>(`${environment.tcgApi}?name=${filters}&page=${pageNum}`);
   }
 
+  getCardsBySubtype(filters: string, pageNum: number = 1): Observable<Cards> {
+    return this.client.get<Cards>(`${environment.tcgApi}?subtype=${filters}&page=${pageNum}`);
+  }
+
+  getCardsBySet(filters: string, pageNum: number = 1): Observable<Cards> {
+    return this.client.get<Cards>(`${environment.tcgApi}?set=${filters}&page=${pageNum}`);
+  }
 
   getSets(): Observable<Sets> {
     return this.client.get<Sets>(`${environment.sets}`);
