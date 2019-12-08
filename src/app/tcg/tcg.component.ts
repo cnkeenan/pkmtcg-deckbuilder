@@ -17,14 +17,17 @@ export class TcgComponent implements OnInit {
   public cards: Card[] = [];
   public deck: Deck = new Deck();
   public sets: CardSet[] = [];
-  public pageNum: number = 2;
+  public pageNum: number = 1;
   public errSet: boolean = false;
 
+  private totalCount: string;
+
+  /**
+   * Filter fields
+   */
   specificPokemon: FormControl = new FormControl();
   specificSet: FormControl = new FormControl();
   specificSubtype: FormControl = new FormControl();
-
-  iconMap: Map<string, string> = new Map<string, string>();
 
   public msg: string = "";
 
@@ -49,15 +52,24 @@ export class TcgComponent implements OnInit {
     this.msg = "";
   }
 
+  /***************************
+   * Interface methods
+   ***************************/
   ngOnInit() {
+
+    // Default on page load 
     this.api.getCards(this.pageNum)
       .subscribe((data) => {
-        this.cards = data.cards;
+        // Get the prev and next link
+        this.totalCount = data.headers.get("Total-Count");
+
+        this.cards = data.body.cards;
       }, (error) => {
         this.errSet = true;
         this.errorMessage = error.toString();
       });
 
+    // Observable for when filtering by pokemon
     this.specificPokemon.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe(specificPokemon => {
@@ -68,6 +80,7 @@ export class TcgComponent implements OnInit {
           })
       })
 
+    // Observable for when filtering by set
     this.specificSet.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe(spec => {
@@ -77,6 +90,7 @@ export class TcgComponent implements OnInit {
           })
       })
 
+    // Observable for when filtering by subtype of card
     this.specificSubtype.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe(spec => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import { Pokemon, DamageRelations } from '../domain/pokemon';
@@ -23,25 +23,9 @@ export class ApiService {
 
   constructor(private client: HttpClient, private cache: CachingService) { }
 
-  /**
-   * Gets the pokedex entry for the pokemon
-   * by name
-   * @param name  name of pokemon
-   */
-  getPokemon(name: string) {
-    if (this.cache.has(name)) {
-      return this.cache.get(name);
-    }
 
-    var pokemon = this.client.get<Pokemon>(`${environment.pokemonUri}${name}`);
-
-    this.cache.set(name, pokemon);
-
-    return pokemon;
-  }
-
-  getCards(pageNum: number): Observable<Cards> {
-    return this.client.get<Cards>(`${environment.tcgApi}?page=${pageNum}`);
+  getCards(pageNum: number): Observable<HttpResponse<Cards>> {
+    return this.client.get<Cards>(`${environment.tcgApi}?page=${pageNum}`, { observe: "response" });
   }
 
   getCardsByFilters(filters: string, pageNum: number = 1): Observable<Cards> {
@@ -58,14 +42,5 @@ export class ApiService {
 
   getSets(): Observable<Sets> {
     return this.client.get<Sets>(`${environment.sets}`);
-  }
-
-  /**
-   * Gets the associated type relations
-   * ex. Ghost is 2x damaged by Dark
-   * @param url   url of the type
-   */
-  getTypeRelations(url: string) {
-    return this.client.get<DamageRelations>(`${url}`);
   }
 }
