@@ -15,79 +15,140 @@
             <a href="#" data-toggle="modal" [attr.data-target]="'#'+card.id"><img src="{{card.imageUrlHiRes}}"
                     class="card-img-top"></a>
 
-            <div class="modal fade" [attr.id]="card.id" aria-labelledby="poke-info-label" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <ng-container *ngIf="msg">
-                            <div class="alert alert-info alert-dismissable fade
-                                    show" role="alert">
-                                <strong>{{msg}}</strong>
-                                <button type="button" (click)="ack()" class="close" data-dismiss="alert"
-                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+            <div class="modal fade bd-example-modal-lg " [attr.id]="card.id" aria-labelledby="poke-info-label"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg tcg-modal" role="document">
+                    <ng-container *ngIf="card.supertype == 'Pokémon'">
+                        <div class="modal-content {{card.types[0]}}">
+                            <ng-container *ngIf="msg">
+                                <div class="alert alert-info alert-dismissable fade
+                                                                show" role="alert">
+                                    <strong>{{msg}}</strong>
+                                    <button type="button" (click)="ack()" class="close" data-dismiss="alert"
+                                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            </ng-container>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                             </div>
-                        </ng-container>
-                        <div class="modal-header">
-                            <!-- Pokémon type-->
-                            <ng-container *ngIf="card.supertype == 'Pokémon'">
-                                <h5 class="modal-title" id="poke-info-label">{{card.name}}
-                                    HP{{card.hp}}</h5>
-                            </ng-container>
-                            <!-- Trainer type-->
-                            <ng-container *ngIf="card.supertype == 'Trainer'">
-                                <h5 class="modal-title" id="poke-info-label">{{card.name}} </h5>
+                            <div class="modal-body">
+                                <img src="{{card.imageUrlHiRes}}" class="rounded
+                                    float-left card-modal">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="pkmn-heading">
+                                            <div class="col-sm-12">
+                                                <h4 class="pkmn-name">{{card.name}}
+                                                    HP {{card.hp}}
+                                                </h4>
+                                                <h6 class="text-muted">{{card.supertype}}
+                                                    - {{card.subtype}}
+                                                </h6><span class="energy-icon
+                                                icon-{{card.types[0]}}"></span>
 
-                            </ng-container>
-                            <!-- Energy type-->
-                            <ng-container *ngIf="card.supertype == 'Energy'">
-                                <h5 class="modal-title" id="poke-info-label">{{card.name}}</h5>
-                            </ng-container>
-
-                            <button class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <ng-container *ngIf="card.supertype == 'Pokémon'">
-                                <h5>Moves</h5>
-                                <div *ngFor="let move of card.attacks">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="col-xs-2" *ngFor="let cost of move.cost">
-                                                    <img src=" {{cost}}" width="30" height="30">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <p class="lead">{{move.name}}</p>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="badge badge-primary
-                                                text-wrap" style="width: 6rem;">
-                                                    {{move.damage}}
-                                                </div>
                                             </div>
                                         </div>
-                                        <p>{{move.text}}</p>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <ng-container *ngIf="card?.ability">
+                                            <div class="col-md-12">
+                                                <h4 class="pkmn-name">
+                                                    {{card.ability.name}}
+                                                </h4>
+                                                <p class="lead">{{card.ability.text}}</p>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="card?.text">
+                                            <div class="col-md-12">
+                                                <h4 class="pkmn-name">Rules</h4>
+                                                <p class="lead" *ngFor="let text of card.text">{{text}}</p>
+                                            </div>
+                                        </ng-container>
+                                        <div class="col-md-6" *ngFor="let move of card.attacks">
+                                            <div *ngFor="let price of
+                                            move.cost">
+                                                <span class="energy-icon icon-{{price}}"></span>
+
+                                            </div>
+                                            <p>{{move.name}}</p>
+                                            <p>{{move.text}}</p>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </ng-container>
-                            <ng-container *ngIf="card.supertype == 'Trainer'">
-                                <h5>Effect </h5>
-                                <div *ngFor="let effect of card.text">
-                                    <p>{{effect}}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <ng-container *ngIf="deck.containsCard(card)">
+                                    <button type="button" (click)="removeFromDeck(card)" class=" btn btn-primary"><span
+                                            class="material-icons">remove_circle</span></button>
+                                </ng-container>
+                                <button type="button" (click)="addToDeck(card)" class="btn
+                                        btn-primary"><span class="material-icons">add_circle</span></button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="card.supertype == 'Trainer'">
+                        <div class="modal-content {{card.supertype}}">
+                            <ng-container *ngIf="msg">
+                                <div class="alert alert-info alert-dismissable fade
+                                                                    show" role="alert">
+                                    <strong>{{msg}}</strong>
+                                    <button type="button" (click)="ack()" class="close" data-dismiss="alert"
+                                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
-
                             </ng-container>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="poke-info-label">{{card.name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{card.imageUrlHiRes}}" class="rounded
+                                                float-left card-modal">
+                            </div>
+                            <div class="modal-footer">
+                                <ng-container *ngIf="deck.containsCard(card)">
+                                    <button type="button" (click)="removeFromDeck(card)" class=" btn btn-primary"><span
+                                            class="material-icons">remove_circle</span></button>
+                                </ng-container>
+                                <button type="button" (click)="addToDeck(card)" class="btn
+                                            btn-primary"><span class="material-icons">add_circle</span></button>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <ng-container *ngIf="deck.containsCard(card)">
-                                <button type="button" (click)="removeFromDeck(card)" class=" btn btn-primary"><span
-                                        class="material-icons">remove_circle</span></button>
+                    </ng-container>
+                    <ng-container *ngIf="card.supertype == 'Energy'">
+                        <div class="modal-content {{card.supertype}}">
+                            <ng-container *ngIf="msg">
+                                <div class="alert alert-info alert-dismissable fade
+                                                                    show" role="alert">
+                                    <strong>{{msg}}</strong>
+                                    <button type="button" (click)="ack()" class="close" data-dismiss="alert"
+                                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
                             </ng-container>
-                            <button type="button" (click)="addToDeck(card)" class="btn
-                            btn-primary"><span class="material-icons">add_circle</span></button>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="poke-info-label">{{card.name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{card.imageUrlHiRes}}" class="rounded
+                                                float-left card-modal">
+                            </div>
+                            <div class="modal-footer">
+                                <ng-container *ngIf="deck.containsCard(card)">
+                                    <button type="button" (click)="removeFromDeck(card)" class=" btn btn-primary"><span
+                                            class="material-icons">remove_circle</span></button>
+                                </ng-container>
+                                <button type="button" (click)="addToDeck(card)" class="btn
+                                            btn-primary"><span class="material-icons">add_circle</span></button>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

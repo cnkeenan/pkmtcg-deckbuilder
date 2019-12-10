@@ -1,3 +1,27 @@
+
+$colorless1: #f3ebe3;
+$colorless2: #e4e2e4;
+$darkness1: #3f3e4d;
+$darkness2: #27232b;
+$dragon1: #786d3b;
+$dragon2: #dbb004;
+$fairy1: #c6447e;
+$fairy2: #e860a1;
+$fighting1: #de9553;
+$fighting2: #e7be8d;
+$fire1:#ef4c31;
+$fire2: #ffbe31;
+$psychic1: #a06da5;
+$psychic2: #c3a8ce;
+$electric1: #e5d31d;
+$electric2: #e6de96;
+$grass1:#77be71;
+$grass2:#c5e6b4;
+$metal1:#c4c9d6;
+$metal2:#8190a1;
+$water1:#56a3eb;
+$water2:#c7e4fd;
+
 .tcg-card {
     padding: 2rem 2rem 2rem 2rem;
 }
@@ -14,18 +38,138 @@
     background: linear-gradient(0.20turn, red, blue);
 }
 
-$colorless: url('../../assets/colorless.PNG');
-$darkness: url('../../assets/dark.PNG');
-$dragon: url('../../assets/dragon.PNG');
-$fairy: url('../../assets/fairy.PNG');
-$fighting: url('../../assets/fighting.PNG');
-$fire: url('../../assets/fire.PNG');
-$grass: url('../../assets/grass.PNG');
-$lightning: url('../../assets/lightning.PNG');
-$metal: url('../../assets/steel.PNG');
-$psychic: url('../../assets/psychic.PNG');
-$water: url('../../assets/water.PNG');
 
 .Colorless {
-    background: $colorless;
+    color: black;
+    background: linear-gradient(0.25turn, $colorless2, $colorless1);
+}
+
+.Darkness {
+    color: white;
+    background: linear-gradient(0.25turn, $darkness1, $darkness2);
+}
+
+.Water {
+    color: black;
+    background: linear-gradient(0.20turn, $water1, $water2);
+}
+
+.Metal {
+    color: black;
+    background: linear-gradient(0.20turn, $metal1, $metal2);
+}
+
+.Grass {
+    color: black;
+    background: linear-gradient(0.20turn, $grass1, $grass2);
+}
+
+.Psychic {
+    color: black;
+    background: linear-gradient(0.20turn, $psychic1, $psychic2);
+}
+
+.Fire {
+    color: black;
+    background: linear-gradient(0.20turn, $fire1, $fire2);
+}
+
+.Lightning {
+    color:black;
+    background: linear-gradient(0.20turn, $electric1, $electric2);
+}
+
+.Dragon {
+    color: black;
+    background: linear-gradient(0.20turn, $dragon1, $dragon2);
+}
+
+.Fairy {
+    color: white;
+    background: linear-gradient(0.20turn, $fairy1, $fairy2);
+}
+
+.Fighting {
+    color: black;
+    background: linear-gradient(0.20turn, $fighting1, $fighting2);
+}
+
+.energy-icon  {
+    background-image: url('../../assets/__energy.png');
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    margin: 0 3px;
+    margin-top: 0px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+}
+
+
+.icon-Colorless {
+    background-position: -25px 0px
+}
+
+.icon-Darkness {
+    background-position: 0px -50px;
+}
+
+
+.icon-Water {
+    background-position: -75px -50px;
+}
+
+
+.icon-Metal {
+    background-position: -75px 0px;
+}
+
+
+.icon-Grass {
+    background-position: -25px -50px;
+}
+
+
+.icon-Psychic {
+    background-position: -75px -25px;
+}
+
+
+.icon-Fire {
+   background-position: 0px 0px;
+}
+
+
+.icon-Lightning {
+    background-position: -25px -25px;
+}
+
+
+.icon-Dragon {
+    background-position: 0px -25px;
+}
+
+
+.icon-Fairy {
+    background-position: -50px 0px;
+}
+
+
+.icon-Fighting {
+   background-position: -50px -25px;
+}
+
+
+.card-modal {
+    width: 40%;
+    height: 40%;
+}
+
+.pkmn-name {
+    font-weight: lighter;
+}
+
+.tcg-card-details {
+    padding-left: 10rem;
 }

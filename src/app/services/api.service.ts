@@ -28,6 +28,8 @@ export class ApiService {
     return this.client.get<Cards>(`${environment.tcgApi}?page=${pageNum}`, { observe: "response" });
   }
 
+
+
   getCardsByFilters(filters: string, pageNum: number = 1): Observable<Cards> {
     return this.client.get<Cards>(`${environment.tcgApi}?name=${filters}&page=${pageNum}`);
   }
