@@ -20,6 +20,14 @@ export class Card {
         public set: string,
         public text: string[],
         public setCode: string,
+        public resistances: {
+            type: string,
+            value: string
+        }[],
+        public weaknesses: {
+            type: string,
+            value: string
+        }[],
         public attacks: {
             cost: string[],
             name: string,

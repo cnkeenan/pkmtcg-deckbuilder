@@ -17,8 +17,7 @@
 
 
 
-            <div class="modal fade bd-example-modal-lg " [attr.id]="card.id" aria-labelledby="poke-info-label"
-                aria-hidden="true">
+            <div class="modal fade" [attr.id]="card.id" aria-labelledby="poke-info-label" aria-hidden="true">
                 <div class="modal-dialog modal-lg tcg-modal" role="document">
                     <ng-container *ngIf="card.supertype == 'Pokémon'">
                         <div class="modal-content {{card.types[0]}}">
@@ -39,47 +38,110 @@
                                     float-left card-modal">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="pkmn-heading">
-                                            <div class="col-sm-12">
-                                                <h4 class="pkmn-name">{{card.name}}
-                                                    HP {{card.hp}}
-                                                </h4>
-                                                <h6 class="text-muted">{{card.supertype}}
-                                                    - {{card.subtype}}
-                                                </h6><span class="energy-icon
-                                                icon-{{card.types[0]}}"></span>
+                                        <div class="col-md-4">
+                                            <span class="pkmn-name">{{card.name}}
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="pkmn-name text-center">{{card.subtype}} {{card.supertype}}
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span *ngFor="let type of
+                                            card.types">
+                                                <span class="energy-icon
+                                            icon-{{type}} pkmn-hp">
+                                                </span>
+                                            </span>
 
-                                            </div>
+                                            <span class="pkmn-hp pkmn-name">HP {{card.hp}}</span>
+
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row">
-                                        <ng-container *ngIf="card?.ability">
-                                            <div class="col-md-12">
-                                                <h4 class="pkmn-name">
-                                                    {{card.ability.name}}
-                                                </h4>
-                                                <p class="lead">{{card.ability.text}}</p>
-                                            </div>
-                                        </ng-container>
-                                        <ng-container *ngIf="card?.text">
-                                            <div class="col-md-12">
-                                                <h4 class="pkmn-name">Rules</h4>
-                                                <p class="lead" *ngFor="let text of card.text">{{text}}</p>
-                                            </div>
-                                        </ng-container>
-                                        <div class="col-md-6" *ngFor="let move of card.attacks">
-                                            <div *ngFor="let price of
-                                            move.cost">
-                                                <span class="energy-icon icon-{{price}}"></span>
+                                    <ng-container *ngIf="card?.ability">
 
+                                        <div class="row">
+                                            <div class="col-md-4"><span class={{card.ability.type}}></span></div>
+                                            <div class="col-md-4"><span
+                                                    class="text-{{card.ability.type}}">{{card.ability.name}}</span>
                                             </div>
-                                            <p>{{move.name}}</p>
-                                            <p>{{move.text}}</p>
+                                            <div class="col-md-12"><span class="pkmn-name">{{card.ability.text}}</span>
+                                            </div>
                                         </div>
 
+
+                                    </ng-container>
+
+                                </div>
+                                <div class="container card-costs">
+                                    <div class="row" *ngFor="let move of
+                                        card.attacks">
+                                        <div class="col-md-4">
+                                            <span *ngFor=" let price of move.cost">
+                                                <span class="energy-icon icon-{{price}} pkmn-cost"></span>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <span class="pkmn-move-name">{{move.name}}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="pkmn-move-damage">{{move.damage}}</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="pkmn-name">{{move.text}}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="container card-costs">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <span class="matchups">Weakness</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="matchups">Resistance</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="matchups">Retreat Cost</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <span *ngFor="let weak of
+                                                    card.weaknesses">
+                                                <span class="energy-icon
+                                                        icon-{{weak.type}}
+                                                        pkmn-cost"></span>
+
+                                            </span>
+                                            <ng-container *ngIf="card?.weaknesses">
+                                                <span>{{card.weaknesses[0].value}}</span>
+                                            </ng-container>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <span *ngFor="let resist of
+                                                        card.resistances">
+                                                <span class="energy-icon
+                                                        icon-{{resist.type}}
+                                                        pkmn-cost"></span>
+
+                                            </span>
+                                            <ng-container *ngIf="card?.resistances">
+                                                <span>{{card.resistances[0].value}}</span>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span *ngFor="let retreat of
+                                                        card.retreatCost">
+                                                <span class="energy-icon
+                                                            icon-{{retreat}} pkmn-cost"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <ng-container *ngIf="deck.containsCard(card)">
@@ -102,13 +164,18 @@
                                 </div>
                             </ng-container>
                             <div class="modal-header">
-                                <h5 class="modal-title" id="poke-info-label">{{card.name}}</h5>
+
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
                                 <img src="{{card.imageUrlHiRes}}" class="rounded
                                                 float-left card-modal">
+                                <div class="container">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <ng-container *ngIf="deck.containsCard(card)">

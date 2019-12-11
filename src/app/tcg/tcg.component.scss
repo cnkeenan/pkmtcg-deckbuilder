@@ -94,6 +94,14 @@ $water2:#c7e4fd;
     background: linear-gradient(0.20turn, $fighting1, $fighting2);
 }
 
+.pkmn-heading {
+    display: inline-block;
+}
+
+.pkmn-hp {
+    float: right;
+}
+
 .energy-icon  {
     background-image: url('../../assets/__energy.png');
     width: 25px;
@@ -104,6 +112,77 @@ $water2:#c7e4fd;
     margin-right: 3px;
     margin-bottom: 0px;
     margin-left: 3px;
+}
+
+.Ability {
+    background-image: url('../../assets/__ability.png');
+    width: 100px;
+    height: 25px;
+    display: inline-block;
+    margin: 0 3px;
+    margin-top: 0px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+    background-repeat: no-repeat;
+}
+
+.Poké-Body {
+    background-image: url('../../assets/__pokebody.png');
+    width: 100px;
+    height: 25px;
+    display: inline-block;
+    margin: 0 3px;
+    margin-top: 0px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+}
+
+.Poké-Power {
+    background-image: url('../../assets/__pokepower.png');
+    width: 100px;
+    height: 25px;
+    display: inline-block;
+    margin: 0 3px;
+    margin-top: 0px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+}
+
+.text-Poké-Body {
+    text-shadow: #27232b;
+    color: #205704;
+}
+
+.text-Poké-Power {
+    text-shadow: #27232b;
+    color: #770a06;
+}
+
+.pkmn-cost {
+    float: left;
+}
+
+.Trainer {
+    color:black;
+    background: linear-gradient(0.20turn, #d0dcef, #f9f3f6);
+}
+
+.pkmn-move-name {
+    font-weight: 450;
+    float: left;
+}
+
+.pkmn-move-damage {
+    font-weight: 500;
+    float: right;
+}
+
+.matchups {
+    font-variant: small-caps;
+    font-weight: 300;
 }
 
 
@@ -167,8 +246,10 @@ $water2:#c7e4fd;
 }
 
 .pkmn-name {
-    font-weight: lighter;
+    font-weight: 400;
+    font-size: 0.90em;
 }
+
 
 .tcg-card-details {
     padding-left: 10rem;
